@@ -64,6 +64,12 @@ def wait_for_service(url, timeout=20):
     return False
 
 def main():
+    if sys.platform == "win32":
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
     os.system("") # Enable ANSI colors on Windows console
     print("\n" + "=" * 65)
     print("  \033[95m🤖 QWERTY — Autonomous AI Companion & Software Engineer\033[0m")
@@ -88,7 +94,9 @@ def main():
         stderr=subprocess.STDOUT,
         text=True,
         bufsize=1,
-        universal_newlines=True
+        universal_newlines=True,
+        encoding="utf-8",
+        errors="replace"
     )
 
     # 3. Launch Frontend
@@ -100,7 +108,9 @@ def main():
         stderr=subprocess.STDOUT,
         text=True,
         bufsize=1,
-        universal_newlines=True
+        universal_newlines=True,
+        encoding="utf-8",
+        errors="replace"
     )
 
     processes = [backend_proc, frontend_proc]
